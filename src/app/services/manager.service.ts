@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ColorData} from '../datas/ColorData';
+import { GameGridData } from '../datas/GameGridData';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class ManagerService {
   private _nbTurns: number;
   private _settingsMode: boolean;
   private _colorList: Array<any>;
-  private _colorTab: Array<any>;
-  private _gameGridTab: Array<any>;
+  private _colorTab: Array<any> = [];
+  private _gameGridTab: Array<any> = [];
   private _aiGridTab: Array<any>;
 
   constructor() {
@@ -19,32 +20,31 @@ export class ManagerService {
   }
 
 declareGameGrid() {
-    let y = 1;
-    for (let i = 1; i <= 60; i++) {
-      this.gameGridTab.push(new GameGridData(i, y, 1));
-      y++;
-      if ( y === 7 ) {
-        y = 1;
-      }
+  let y = 1;
+  for (let i = 1; i <= 60; i++) {
+    this.gameGridTab.push(new GameGridData(i, y, 1));
+    y++;
+    if (y === 7) {
+      y = 1;
     }
+  }
 }
 
-
-  declareColors() {
+declareColors() {
     this.colorList = [
-      ['rien',   '#FFFFFF'], // 1
-      ['rouge',  '#E74C3C'], // 2
+      ['rien', '#FFFFFF'], // 1
+      ['rouge', '#E74C3C'], // 2
       ['violet', '#9B59B6'], // 3
-      ['bleu',   '#3498DB'], // 4
-      ['vert',   '#27AE60'], // 5
-      ['jaune',  '#F1C40F'], // 6
+      ['bleu', '#3498DB'], // 4
+      ['vert', '#27AE60'], // 5
+      ['jaune', '#F1C40F'], // 6
       ['orange', '#F39C12'] // 7
-    ];
-    this.colorList.forEach(function(value, n) {
+  ];
+
+    this._colorList.forEach((value: any, n: number) => {
       this.colorTab.push(new ColorData(n + 1, value[0], value[1]));
     });
-
-  }
+}
 
 
   get nbTurns(): number {
