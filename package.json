@@ -1,47 +1,86 @@
 {
   "name": "mastermind",
-  "version": "0.0.0",
+  "author": "Al3dekev",
+  "description": "mastermind app",
+  "version": "1.0.0",
+  "main": "../mastermind/launch.js",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "ng": "../mastermind/node_modules/.bin/ng",
+    "start": "npx ng serve",
+    "build": "npx ng build",
+    "test": "npx ng test",
+    "lint": "npx ng lint",
+    "e2e": "npx ng ../mastermind/e2e",
+    "ElectronLaunch": "npx ng build --base-href ../mastermind && npx electron .",
+    "Release": "npx ng build --base-href ../mastermind && npx electron-builder build"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.14",
+    "@angular/cdk": "~8.2.3",
     "@angular/common": "~8.2.14",
     "@angular/compiler": "~8.2.14",
     "@angular/core": "~8.2.14",
     "@angular/forms": "~8.2.14",
+    "@angular/material": "^8.2.3",
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "rxjs": "~6.4.0",
+    "core-js": "^2.5.4",
+    "hammerjs": "^2.0.8",
+    "ngx-electron": "2.2.0",
+    "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.23",
-    "@angular/cli": "~8.3.23",
+    "@angular-devkit/build-angular": "~0.803.22",
+    "@angular/cli": "~8.3.22",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
-    "@types/node": "~8.9.4",
-    "@types/jasmine": "~3.3.8",
+    "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
-    "codelyzer": "^5.0.0",
-    "jasmine-core": "~3.4.0",
+    "@types/node": "~8.9.4",
+    "codelyzer": "^5.0.1",
+    "electron": "7.0.0",
+    "electron-builder": "20.5.1",
+    "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~4.1.0",
+    "karma": "~3.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
-    "karma-jasmine": "~2.0.1",
-    "karma-jasmine-html-reporter": "^1.4.0",
+    "karma-jasmine": "~1.1.2",
+    "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0",
+    "tslint": "~5.11.0",
     "typescript": "~3.5.3"
+  },
+  "build": {
+    "appId": "com.al3dekev.mastermind",
+    "productName": "Crypto Messenger",
+    "directories": {
+      "output": "release/"
+    },
+    "win": {
+      "icon": "dist/mastermind/assets/icon512.png",
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "portable": {
+      "unicode": false,
+      "artifactName": "mastermind.exe"
+    },
+    "files": [
+      "dist/**/*",
+      "launch.js"
+    ]
   }
 }
