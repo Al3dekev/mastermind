@@ -14,6 +14,7 @@ import {MatInputModule} from '@angular/material';
 import { GameSquareComponent } from './components/game-square/game-square.component';
 import { ResultGridComponent } from './components/result-grid/result-grid.component';
 import { ResultBallComponent } from './components/result-ball/result-ball.component';
+import { ResultValidateComponent } from './components/result-validate/result-validate.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ResultBallComponent } from './components/result-ball/result-ball.compon
     AiGridComponent,
     GameSquareComponent,
     ResultGridComponent,
-    ResultBallComponent
+    ResultBallComponent,
+    ResultValidateComponent
   ],
   imports: [
     BrowserModule,
