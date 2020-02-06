@@ -1,8 +1,9 @@
-<div>
-  <h1>Parametrages de la partie</h1>
+<h1>Parametrages de la partie</h1>
 
-  <div>
-    <label>Nombres de tour : </label>
-      <input type="number" min="1" max="15">
-  </div>
+<div class="turnValidation">
+  <mat-form-field appearance="outline">
+    <mat-label>Nombres de tour</mat-label>
+    <input matInput placeholder="Select a number" type="number" min="1" max="15">
+  </mat-form-field>
+  <button mat-raised-button (click)="accessGame()">Valider</button>
 </div>

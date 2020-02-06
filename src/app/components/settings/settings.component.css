@@ -1,0 +1,22 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: #74c8ff;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+}
+
+.turnValidation .mat-form-field .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.turnValidation{
+  display: flex ;
+  flex-direction: row ;
+  flex-wrap: wrap ;
+  justify-content: space-around ;
+  align-items: center ;
+  align-content: center ;
+}
