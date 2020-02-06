@@ -15,9 +15,19 @@ export class ManagerService {
 
   constructor() {
     this.declareColors();
+    this.declareGameGrid();
   }
 
-
+declareGameGrid() {
+    let y = 1;
+    for (let i = 1; i <= 60; i++) {
+      this.gameGridTab.push(new GameGridData(i, y, 1));
+      y++;
+      if ( y === 7 ) {
+        y = 1;
+      }
+    }
+}
 
 
   declareColors() {
