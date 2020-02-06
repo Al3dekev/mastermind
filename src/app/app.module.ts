@@ -11,6 +11,8 @@ import { GameGridComponent } from './components/game-grid/game-grid.component';
 import { AiGridComponent } from './components/ai-grid/ai-grid.component';
 import {MatButtonModule, MatFormFieldModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
+import { GameSquareComponent } from './components/game-square/game-square.component';
+import { ResultGridComponent } from './components/result-grid/result-grid.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import {MatInputModule} from '@angular/material';
     SettingsComponent,
     GameComponent,
     GameGridComponent,
-    AiGridComponent
+    AiGridComponent,
+    GameSquareComponent,
+    ResultGridComponent
   ],
   imports: [
     BrowserModule,
