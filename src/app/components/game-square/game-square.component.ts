@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ManagerService} from '../../services/manager.service';
 
 @Component({
   selector: 'app-game-square',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameSquareComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ms: ManagerService) { }
 
   ngOnInit() {
   }
