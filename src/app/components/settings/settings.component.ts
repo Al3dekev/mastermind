@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,12 +8,22 @@ import {Router} from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
 
+  @ViewChild('inputTurns', {static: false}) inputTurn: ElementRef;
+  private testMod = true;
+
   constructor(private router: Router) { }
 
   accessGame() {
-    this.router.navigate(['/game']).then(r =>
-      console.log(r)
-    );
+    if (this.testMod) {
+      this.inputTurn.nativeElement.valueOf().value = '10';
+    }
+    if (this.inputTurn.nativeElement.valueOf().value === '') {
+      alert('Please insert a turn number');
+    } else {
+      this.router.navigate(['/game']).then(r =>
+        console.log(r)
+      );
+    }
   }
 
   ngOnInit() {
