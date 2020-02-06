@@ -1,4 +1,4 @@
-class AiGridData {
+export class AiGridData {
 
   private _id_line: number;
   private _colorId: number;

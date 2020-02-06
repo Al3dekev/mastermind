@@ -1,4 +1,4 @@
-class GameGridData {
+export class GameGridData {
 
   private _id: number;
   private _id_line: number;
