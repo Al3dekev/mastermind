@@ -8,7 +8,10 @@ import {ManagerService} from '../../services/manager.service';
 })
 export class GameGridComponent implements OnInit {
 
-  constructor(private ms: ManagerService) { }
+  constructor(private ms: ManagerService) {
+    console.log(this.ms.gameGridTab);
+    console.log(this.ms.gameGridTab[1].id);
+  }
 
   ngOnInit() {
   }
