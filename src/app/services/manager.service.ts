@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {ElementRef, Injectable, QueryList, ViewChildren} from '@angular/core';
 import {ColorData} from '../datas/ColorData';
 import { GameGridData } from '../datas/GameGridData';
+import {GameSquareComponent} from '../components/game-square/game-square.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +14,25 @@ export class ManagerService {
   private _colorTab: Array<any> = [];
   private _gameGridTab: Array<any> = [];
   private _aiGridTab: Array<any>;
+  @ViewChildren(GameSquareComponent, {read: ElementRef}) squareball: QueryList<ElementRef>;
 
   constructor() {
     this.declareColors();
     this.declareGameGrid();
   }
 
-declareGameGrid() {
-  let y = 1;
-  for (let i = 1; i <= 60; i++) {
-    this.gameGridTab.push(new GameGridData(i, y, 1));
-    y++;
-    if (y === 7) {
-      y = 1;
+  declareGameGrid() {
+    let y = 1;
+    for (let i = 1; i <= 60; i++) {
+      this.gameGridTab.push(new GameGridData(i, y, 1));
+      y++;
+      if (y === 7) {
+        y = 1;
+      }
     }
   }
-}
 
-declareColors() {
+  declareColors() {
     this.colorList = [
       ['rien', '#FFFFFF'], // 1
       ['rouge', '#E74C3C'], // 2
@@ -39,12 +41,18 @@ declareColors() {
       ['vert', '#27AE60'], // 5
       ['jaune', '#F1C40F'], // 6
       ['orange', '#F39C12'] // 7
-  ];
+    ];
 
     this._colorList.forEach((value: any, n: number) => {
       this.colorTab.push(new ColorData(n + 1, value[0], value[1]));
     });
-}
+  }
+
+  turnSystem() {
+    // Gestion de tour
+    // A chaque tour, d'abord une ligne, en commancant par en haut devient accessible pour l'utilisateur (via l'apparition dela lettre R sur chaque case
+    // a chaque validation, le bouton "valider" descend d'un cran
+  }
 
 
   get nbTurns(): number {
