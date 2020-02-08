@@ -15,6 +15,7 @@ import { ResultGridComponent } from './components/result-grid/result-grid.compon
 import { ResultBallComponent } from './components/result-ball/result-ball.component';
 import { ResultValidateComponent } from './components/result-validate/result-validate.component';
 import { SquareComponent } from './components/square/square.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { SquareComponent } from './components/square/square.component';
     AppRoutingModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
