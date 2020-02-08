@@ -13,7 +13,7 @@ export class GridSystem {
 
 
   switchBall(gameGrid) {
-    if (gameGrid.colorId === 6) {
+    if (gameGrid.colorId === this.ms.colorTab.length) {
       gameGrid.colorId = 1;
     } else {
       gameGrid.colorId++;
