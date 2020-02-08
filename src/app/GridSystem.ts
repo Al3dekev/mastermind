@@ -18,6 +18,15 @@ export class GridSystem {
     } else {
       gameGrid.colorId++;
     }
+    this.changeBallStyle(gameGrid);
+  }
+
+
+  /**
+   * It's actually used to show a color, depending how I want to show it.
+   * @param gameGrid
+   */
+  changeBallStyle(gameGrid) {
     this.ms.colorTab.forEach((elem) => {
       if (gameGrid.colorId === elem.id) {
         this.squareball.forEach((ball, id) => {
@@ -29,6 +38,11 @@ export class GridSystem {
         });
       }
     });
+  }
+
+  aiBallPlacement(gameGrid) {
+    console.log("works");
+    this.changeBallStyle(gameGrid);
   }
 
 
