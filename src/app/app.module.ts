@@ -15,6 +15,7 @@ import { GameSquareComponent } from './components/game-square/game-square.compon
 import { ResultGridComponent } from './components/result-grid/result-grid.component';
 import { ResultBallComponent } from './components/result-ball/result-ball.component';
 import { ResultValidateComponent } from './components/result-validate/result-validate.component';
+import { AiSquareComponent } from './components/ai-square/ai-square.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ResultValidateComponent } from './components/result-validate/result-val
     GameSquareComponent,
     ResultGridComponent,
     ResultBallComponent,
-    ResultValidateComponent
+    ResultValidateComponent,
+    AiSquareComponent
   ],
   imports: [
     BrowserModule,
