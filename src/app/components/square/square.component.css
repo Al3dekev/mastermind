@@ -6,4 +6,5 @@
   user-select: none;
   font-size: 25px;
   font-family: sans-serif, bold;
+  pointer-events: none;
 }

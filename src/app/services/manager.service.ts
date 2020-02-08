@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import {ElementRef, Injectable, ViewChild} from '@angular/core';
 import {ColorData} from '../datas/ColorData';
 import { GameGridData } from '../datas/GameGridData';
 import {AiGridData} from '../datas/AiGridData';
+import {Router} from '@angular/router';
+import {GameComponent} from '../components/game/game.component';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +12,65 @@ export class ManagerService {
 
   private _nbTurns: number;
   private _settingsMode: boolean;
+  private _testMod:boolean;
   private _colorList: Array<any>;
   private _colorTab: Array<any> = [];
   private _gameGridTab: Array<any> = [];
   private _aiGridTab: Array<any> = [];
+  @ViewChild(GameComponent, {static: false, read: ElementRef}) private _gc: ElementRef<any>;
 
-  constructor() {
-    this.declareColors();
-    this.declareGameGrid();
-    this.aiBallSelection();
+  constructor(private router: Router) {
+    this.testMod = true;
+    this.checkIfTurnNbDeclared(0);
+  }
+
+
+  /**
+   * 0: First check for entering the game
+   * 1: Return to main menu when input selected
+   *
+   * @param num
+   */
+  checkIfTurnNbDeclared(num: number) {
+
+    if (num === 0) {
+      if (this.nbTurns === undefined || this.nbTurns === 0) {
+        alert('Pas de tours déclarés, retour au menu principal');
+        this.router.navigate(['/']).then(r =>
+          console.log(r)
+        );
+      } else {
+        this.router.navigate(['/game']).then(r =>
+          console.log(r)
+        );
+        this.declareGameGrid();
+        this.declareColors();
+        this.aiBallSelection();
+      }
+    } else if (num === 1) {
+      this.router.navigate(['/']).then(r => {
+          this.resetEverything();
+          console.log(r);
+      });
+    }
+  }
+
+  resetEverything() {
+    this.aiGridTab = [];
+    this.colorTab = [];
+    this.gameGridTab = [];
+    this.colorList = [];
+    if (this._gc !== undefined) {
+      if (this._gc.nativeElement.valueOf().innerHTML !== '') {
+        this._gc.nativeElement.valueOf().innerHTML = '';
+      }
+    }
   }
 
   declareGameGrid() {
+    console.log('TOURS =>', this.nbTurns);
     let y = 1;
-    for (let i = 1; i <= 60; i++) {
+    for (let i = 1; i <= (this.nbTurns * 6); i++) {
       this.gameGridTab.push(new GameGridData(i, y, 1));
       y++;
       if (y === 7) {
@@ -62,7 +109,6 @@ export class ManagerService {
         num++;
       }
     }
-    console.log(this.aiGridTab);
   }
 
   shuffle(a) {
@@ -88,6 +134,14 @@ export class ManagerService {
 
   set settingsMode(value: boolean) {
     this._settingsMode = value;
+  }
+
+  get testMod(): boolean {
+    return this._testMod;
+  }
+
+  set testMod(value: boolean) {
+    this._testMod = value;
   }
 
   get colorList(): Array<any> {
@@ -120,5 +174,13 @@ export class ManagerService {
 
   set aiGridTab(value: Array<any>) {
     this._aiGridTab = value;
+  }
+
+  get gc(): ElementRef<any> {
+    return this._gc;
+  }
+
+  set gc(value: ElementRef<any>) {
+    this._gc = value;
   }
 }

@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
+import {ManagerService} from '../../services/manager.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,22 +8,26 @@ import {Router} from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
 
-  @ViewChild('inputTurns', {static: false}) inputTurn: ElementRef;
-  private testMod = true;
+  @ViewChild('inputTurn', {static: false}) inputTurn: ElementRef;
 
-  constructor(private router: Router) { }
+  constructor(private ms: ManagerService) { }
 
   accessGame() {
-    if (this.testMod) {
-      this.inputTurn.nativeElement.valueOf().value = '10';
+    let turn = this.inputTurn.nativeElement.valueOf().value;
+    if (this.ms.testMod) {
+      this.inputTurn.nativeElement.valueOf().value = 10;
+      turn = this.inputTurn.nativeElement.valueOf().value;
     }
-    if (this.inputTurn.nativeElement.valueOf().value === '') {
-      alert('Please insert a turn number');
+    if (turn === '' || turn === undefined || turn === 0 || turn > 10) {
+      alert('Please insert a valid turn number');
     } else {
-      this.router.navigate(['/game']).then(r =>
-        console.log(r)
-      );
+      this.ms.nbTurns = turn;
+      this.ms.checkIfTurnNbDeclared(0);
     }
+  }
+
+  editTurn() {
+    this.ms.checkIfTurnNbDeclared(1);
   }
 
   ngOnInit() {
