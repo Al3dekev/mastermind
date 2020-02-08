@@ -1,11 +1,19 @@
-.playerGameContent{
+
+.gridContent {
+  display: flex ;
+  flex-direction: column ;
+  flex-wrap: wrap ;
+  justify-content: space-around ;
+  align-items: center ;
+  align-content: center ;
+}
+
+.gameContent{
   display: flex ;
   flex-direction: row ;
   flex-wrap: wrap ;
   justify-content: center ;
   align-items: center ;
   align-content: center ;
-}
-
-.aiGameContent{
+  margin-top: 20px;
 }

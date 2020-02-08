@@ -11,11 +11,10 @@ import { GameGridComponent } from './components/game-grid/game-grid.component';
 import { AiGridComponent } from './components/ai-grid/ai-grid.component';
 import {MatButtonModule, MatFormFieldModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
-import { GameSquareComponent } from './components/game-square/game-square.component';
 import { ResultGridComponent } from './components/result-grid/result-grid.component';
 import { ResultBallComponent } from './components/result-ball/result-ball.component';
 import { ResultValidateComponent } from './components/result-validate/result-validate.component';
-import { AiSquareComponent } from './components/ai-square/ai-square.component';
+import { SquareComponent } from './components/square/square.component';
 
 
 @NgModule({
@@ -25,11 +24,10 @@ import { AiSquareComponent } from './components/ai-square/ai-square.component';
     GameComponent,
     GameGridComponent,
     AiGridComponent,
-    GameSquareComponent,
     ResultGridComponent,
     ResultBallComponent,
     ResultValidateComponent,
-    AiSquareComponent
+    SquareComponent
   ],
   imports: [
     BrowserModule,

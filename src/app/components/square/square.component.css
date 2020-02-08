@@ -1,0 +1,9 @@
+:host{
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  font-size: 25px;
+  font-family: sans-serif, bold;
+}

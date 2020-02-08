@@ -1,0 +1,8 @@
+:host{
+  display: grid;
+  grid-template-columns: repeat(6, 50px);
+  grid-template-rows: repeat(1, 50px);
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  margin-top: 20px
+}

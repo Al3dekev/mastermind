@@ -1,6 +1,0 @@
-class GridSystem{
-
-  constructor() {
-  }
-
-}
