@@ -6,5 +6,12 @@
   user-select: none;
   font-size: 25px;
   font-family: sans-serif, bold;
+}
+
+.pointerDisabled{
   pointer-events: none;
+}
+
+.pointerEnabled{
+  pointer-events: fill;
 }

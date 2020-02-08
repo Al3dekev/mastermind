@@ -12,7 +12,7 @@ export class ManagerService {
 
   private _nbTurns: number;
   private _settingsMode: boolean;
-  private _testMod:boolean;
+  private _testMod: boolean;
   private _colorList: Array<any>;
   private _colorTab: Array<any> = [];
   private _gameGridTab: Array<any> = [];

@@ -41,7 +41,16 @@ export class GridSystem {
   }
 
   aiBallPlacement(gameGrid) {
-    console.log("works");
+    this.squareball.forEach((ball, id) => {
+      if (gameGrid.id === id + 1) {
+        if (this.ms.testMod) {
+          console.log('test working');
+          ball.nativeElement.valueOf().style.pointerEvents = 'auto';
+        } else { //voir NGclass
+          ball.nativeElement.valueOf().style.pointerEvents = 'none';
+        }
+      }
+    });
     this.changeBallStyle(gameGrid);
   }
 
