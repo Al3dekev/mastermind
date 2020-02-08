@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChild} from '@angular/core';
 import {ManagerService} from '../../services/manager.service';
 
 @Component({
@@ -8,7 +8,7 @@ import {ManagerService} from '../../services/manager.service';
 })
 export class GameSquareComponent implements OnInit {
 
-  constructor(private ms: ManagerService) { }
+  constructor(private ms: ManagerService) {}
 
   ngOnInit() {
   }

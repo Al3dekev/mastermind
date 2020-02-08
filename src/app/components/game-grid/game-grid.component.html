@@ -1,3 +1,1 @@
-<app-game-square *ngFor="let i of this.ms.gameGridTab">
-  {{ i.id }}
-</app-game-square>
+<app-game-square (click)="switchBall(i)" *ngFor="let i of this.ms.gameGridTab"></app-game-square>

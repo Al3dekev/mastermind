@@ -5,3 +5,8 @@
   grid-column-gap: 0;
   grid-row-gap: 0;
 }
+
+.ball{
+  width:10px;
+  height: 10px;
+}
