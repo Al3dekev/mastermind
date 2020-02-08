@@ -1,11 +1,22 @@
 export class AiGridData {
 
+  private _id: number;
   private _id_line: number;
   private _colorId: number;
 
-  constructor(id_line: number, colorId: number) {
+  constructor(id: number, id_line: number, colorId: number) {
+    this.id = id;
     this.id_line = id_line;
     this.colorId = colorId;
+  }
+
+
+  get id(): number {
+    return this._id;
+  }
+
+  set id(value: number) {
+    this._id = value;
   }
 
   get id_line(): number {

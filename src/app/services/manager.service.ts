@@ -1,7 +1,7 @@
-import {ElementRef, Injectable, QueryList, ViewChildren} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {ColorData} from '../datas/ColorData';
 import { GameGridData } from '../datas/GameGridData';
-import {GameSquareComponent} from '../components/game-square/game-square.component';
+import {AiGridData} from '../datas/AiGridData';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +13,12 @@ export class ManagerService {
   private _colorList: Array<any>;
   private _colorTab: Array<any> = [];
   private _gameGridTab: Array<any> = [];
-  private _aiGridTab: Array<any>;
-  @ViewChildren(GameSquareComponent, {read: ElementRef}) squareball: QueryList<ElementRef>;
+  private _aiGridTab: Array<any> = [];
 
   constructor() {
     this.declareColors();
     this.declareGameGrid();
+    this.aiBallSelection();
   }
 
   declareGameGrid() {
@@ -34,7 +34,7 @@ export class ManagerService {
 
   declareColors() {
     this.colorList = [
-      ['rien', '#FFFFFF'], // 1
+      ['rien', '#FFFFFF'], // 1 - it isn't a color
       ['rouge', '#E74C3C'], // 2
       ['violet', '#9B59B6'], // 3
       ['bleu', '#3498DB'], // 4
@@ -52,6 +52,25 @@ export class ManagerService {
     // Gestion de tour
     // A chaque tour, d'abord une ligne, en commancant par en haut devient accessible pour l'utilisateur (via l'apparition dela lettre R sur chaque case
     // a chaque validation, le bouton "valider" descend d'un cran
+  }
+
+  aiBallSelection() {
+    let num = 1;
+    for (const elem of this.shuffle(this.colorTab)) {
+      if (elem.id !== 1) {
+        this.aiGridTab.push(new AiGridData(num, num, elem.id));
+        num++;
+      }
+    }
+    console.log(this.aiGridTab);
+  }
+
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   }
 
 
