@@ -8,7 +8,7 @@ import {ManagerService} from '../../services/manager.service';
 })
 export class GameComponent implements OnInit {
 
-  constructor(private ms: ManagerService) {
+  constructor() {
 
   }
 
