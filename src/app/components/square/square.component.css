@@ -8,10 +8,3 @@
   font-family: sans-serif, bold;
 }
 
-.pointerDisabled{
-  pointer-events: none;
-}
-
-.pointerEnabled{
-  pointer-events: fill;
-}

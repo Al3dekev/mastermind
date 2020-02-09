@@ -3,11 +3,13 @@ export class GameGridData {
   private _id: number;
   private _id_line: number;
   private _colorId: number;
+  private _pointingStatus: boolean;
 
-  constructor(id: number, id_line: number, colorId: number) {
+  constructor(id: number, id_line: number, colorId: number, pointingStatus: boolean) {
     this.id = id;
     this.id_line = id_line;
     this.colorId = colorId;
+    this.pointingStatus = pointingStatus;
   }
 
 
@@ -33,5 +35,13 @@ export class GameGridData {
 
   set colorId(value: number) {
     this._colorId = value;
+  }
+
+  get pointingStatus(): boolean {
+    return this._pointingStatus;
+  }
+
+  set pointingStatus(value: boolean) {
+    this._pointingStatus = value;
   }
 }

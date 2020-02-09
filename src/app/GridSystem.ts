@@ -27,30 +27,22 @@ export class GridSystem {
    * @param gameGrid
    */
   changeBallStyle(gameGrid) {
-    this.ms.colorTab.forEach((elem) => {
-      if (gameGrid.colorId === elem.id) {
-        this.squareball.forEach((ball, id) => {
-          if (gameGrid.id === id + 1) {
-            ball.nativeElement.valueOf().style.backgroundColor = elem.HEX;
-            ball.nativeElement.valueOf().innerText = (elem.name.slice(0, 1)).toUpperCase();
-            console.log('This element is now =>', elem.HEX);
-          }
-        });
-      }
-    });
+    if (gameGrid.pointingStatus === true) {
+      this.ms.colorTab.forEach((elem) => {
+        if (gameGrid.colorId === elem.id) {
+          this.squareball.forEach((ball, id) => {
+            if (gameGrid.id === id + 1) {
+              ball.nativeElement.valueOf().style.backgroundColor = elem.HEX;
+              ball.nativeElement.valueOf().innerText = (elem.name.slice(0, 1)).toUpperCase();
+              console.log('This element is now =>', elem.HEX);
+            }
+          });
+        }
+      });
+    }
   }
 
   aiBallPlacement(gameGrid) {
-    this.squareball.forEach((ball, id) => {
-      if (gameGrid.id === id + 1) {
-        if (this.ms.testMod) {
-          console.log('test working');
-          ball.nativeElement.valueOf().style.pointerEvents = 'auto';
-        } else { //voir NGclass
-          ball.nativeElement.valueOf().style.pointerEvents = 'none';
-        }
-      }
-    });
     this.changeBallStyle(gameGrid);
   }
 

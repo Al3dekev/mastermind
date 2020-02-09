@@ -45,7 +45,7 @@ export class ManagerService {
         );
         this.declareGameGrid();
         this.declareColors();
-        this.aiBallSelection();
+        this.declareAiGridSelection();
       }
     } else if (num === 1) {
       this.router.navigate(['/']).then(r => {
@@ -71,7 +71,7 @@ export class ManagerService {
     console.log('TOURS =>', this.nbTurns);
     let y = 1;
     for (let i = 1; i <= (this.nbTurns * 6); i++) {
-      this.gameGridTab.push(new GameGridData(i, y, 1));
+      this.gameGridTab.push(new GameGridData(i, y, 1, false));
       y++;
       if (y === 7) {
         y = 1;
@@ -101,13 +101,18 @@ export class ManagerService {
     // a chaque validation, le bouton "valider" descend d'un cran
   }
 
-  aiBallSelection() {
+  declareAiGridSelection() {
     let num = 1;
     for (const elem of this.shuffle(this.colorTab)) {
       if (elem.id !== 1) {
-        this.aiGridTab.push(new AiGridData(num, num, elem.id));
+        this.aiGridTab.push(new AiGridData(num, num, elem.id, false));
         num++;
       }
+    }
+    if (this.testMod) {
+      this.aiGridTab.forEach((el) => {
+        el.pointingStatus = true;
+      });
     }
   }
 
