@@ -97,7 +97,8 @@ export class ManagerService {
 
   turnSystem() {
     // Gestion de tour
-    // A chaque tour, d'abord une ligne, en commancant par en haut devient accessible pour l'utilisateur (via l'apparition dela lettre R sur chaque case
+    // A chaque tour, d'abord une ligne, en commancant par en haut devient accessible pour l'utilisateur (via l'apparition de la lettre R sur chaque case)
+    // le bouton valider est sur la premiere ligne et bouge d'une ligne en bas a chaque fois
     // a chaque validation, le bouton "valider" descend d'un cran
   }
 
