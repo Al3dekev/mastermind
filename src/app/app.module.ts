@@ -16,6 +16,7 @@ import { ResultBallComponent } from './components/result-ball/result-ball.compon
 import { ResultValidateComponent } from './components/result-validate/result-validate.component';
 import { SquareComponent } from './components/square/square.component';
 import {FormsModule} from '@angular/forms';
+import {ManagerService} from './services/manager.service';
 
 
 @NgModule({
@@ -39,7 +40,9 @@ import {FormsModule} from '@angular/forms';
     MatButtonModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    ManagerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
