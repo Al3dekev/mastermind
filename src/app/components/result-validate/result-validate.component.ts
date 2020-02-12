@@ -18,17 +18,38 @@ export class ResultValidateComponent implements OnInit {
   }
 
   EmptyForNow() {
+    this.ms.passingToTheNextLineSelection();
     console.log('Vide mais fonctionne. Bouton Validate');
     let y = 1;
-    if (this.actualRow <= 11) {
+    if (this.actualRow <= 10) {
       this.actualRow++;
-      this.gridArea = this.actualRow;
-      for (let i = 1; i <= 6; i++) {
-        console.log('Loop', y);
-        this.ms.resultGridTab.push(new ResultBallData(i, y, 0));
-        y++;
-      }
+        this.gridArea = this.actualRow;
+        for (let i = 1; i <= 6; i++) {
+          this.ms.resultGridTab.push(new ResultBallData(i, y, 0));
+          y++;
+        }
+    } else {
+      console.log('Vous avez gagné');
     }
+  }
+
+  BallComparisons() {
+    let numLigne = (this.ms.TurnLineNumber * 6) + 1;
+    const resultLigne = numLigne + 5;
+
+    this.ms.aiGridTab.forEach((AiGrid) => {
+      this.ms.gameGridTab.forEach((GameGrid) => {
+        if (numLigne <= GameGrid.id && resultLigne >= GameGrid.id) {
+          if((AiGrid.id_line === GameGrid.id_line) && (AiGrid.colorId === GameGrid.colorId)){
+            console.log("Meme couleur et meme position, GG");
+          } else{
+            // faire la recherche sur toute la ligne si présence de couleur
+            //foreach de gameGridtab avec condition avec numligne/resultligne (encore)
+          }
+        }
+      });
+    });
+
   }
 
 /*  declareResultGrid() {

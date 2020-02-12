@@ -1,10 +1,11 @@
-import {ElementRef, Injectable, ViewChild} from '@angular/core';
+import {ElementRef, Injectable, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {ColorData} from '../datas/ColorData';
 import { GameGridData } from '../datas/GameGridData';
 import {AiGridData} from '../datas/AiGridData';
 import {ResultBallData} from '../datas/ResultBallData';
 import {Router} from '@angular/router';
 import {GameComponent} from '../components/game/game.component';
+import {SquareComponent} from '../components/square/square.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import {GameComponent} from '../components/game/game.component';
 export class ManagerService {
 
   private _nbTurns: number;
+  private _TurnLineNumber: number;
   private _settingsMode: boolean;
   private _testMod: boolean;
   private _colorList: Array<any>;
@@ -21,7 +23,9 @@ export class ManagerService {
   private _resultGridTab: Array<any> = [];
   @ViewChild(GameComponent, {static: false, read: ElementRef}) private _gc: ElementRef<any>;
 
+
   constructor(private router: Router) {
+    this.TurnLineNumber = 0;
     this.testMod = true;
     this.checkIfTurnNbDeclared(0);
   }
@@ -48,6 +52,7 @@ export class ManagerService {
         this.declareGameGrid();
         this.declareColors();
         this.declareAiGridSelection();
+        this.passingToTheNextLineSelection();
       }
     } else if (num === 1) {
       this.router.navigate(['/']).then(r => {
@@ -55,6 +60,23 @@ export class ManagerService {
           console.log(r);
       });
     }
+  }
+
+
+  passingToTheNextLineSelection() {
+    const numLigne = (this.TurnLineNumber * 6) + 1;
+    const resultLine = numLigne + 5;
+    console.log('numLigne', numLigne);
+    // Bloquage de la ligne précédente
+    console.log('boucle numLigne', numLigne);
+    this.gameGridTab.forEach((elem) => {
+      if (elem.id >= numLigne && elem.id <= resultLine) {
+        elem .pointingStatus = true;
+      } else {
+        elem.pointingStatus = false;
+      }
+      });
+    this.TurnLineNumber++;
   }
 
   resetEverything() {
@@ -98,6 +120,40 @@ export class ManagerService {
   }
 
 
+
+  turnSystem() {
+/*    const turnConcernedElement = 6;
+    let ligneNum = 1;
+    for (let i = 1; i <= turnConcernedElement; i++) {
+      this.changeSingleBallStyle(i, ligneNum);
+      if (ligneNum === 6) {
+        ligneNum = 1;
+      } else {
+        ligneNum++;
+      }
+    }*/
+
+    // Gestion de tour
+    // A chaque tour, d'abord une ligne, en commancant par en haut
+    // devient accessible pour l'utilisateur (via l'apparition de la lettre R sur chaque case)
+    // le bouton valider est sur la premiere ligne et bouge d'une ligne en bas a chaque fois
+    // a chaque validation, le bouton "valider" descend d'un cran
+
+    // ecrit le 12 02 2020
+    // choix utilisateur des cases
+    // ne valide pas les cases si sur BLANC/RIEN. Alert a l'utilisateur
+    // Si valide, test les différentes boules avec celles de l'IA
+    // dans cette ordre:
+    // 1: Correspondance de couleurs, pas de placement, set une result ball sur 1
+    // 2 : correspondances couleurs/placement; set une result ball sur 2
+    // placer les results ball sur la ligne la plus haute et deplacer en conséquent le bouton validate
+    // activation de la 2e ligne de la game grid (grace a la var TOURS EN COURS)
+    // de nouveau en attente du joueur de choix boules et cliquer validate
+    // Mise a jour du TOURS EN COURS a chaque fin de "turn"
+  }
+
+
+
   declareAiGridSelection() {
     let num = 1;
     for (const elem of this.shuffle(this.colorTab)) {
@@ -111,6 +167,21 @@ export class ManagerService {
         el.pointingStatus = true;
       });
     }
+  }
+
+
+  // LES OUTILS UTILES
+
+  rgb2hex(rgb) {
+    rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+    return (rgb && rgb.length === 4) ? ('#' +
+      ('0' + parseInt(rgb[1], 10).toString(16)).slice(-2) +
+      ('0' + parseInt(rgb[2], 10).toString(16)).slice(-2) +
+      ('0' + parseInt(rgb[3], 10).toString(16)).slice(-2)).toUpperCase() : '';
+  }
+
+  sliceColorNameToFirstLetter(colorName: string) {
+    return (colorName.slice(0, 1)).toUpperCase();
   }
 
   shuffle(a) {
@@ -128,6 +199,14 @@ export class ManagerService {
 
   set nbTurns(value: number) {
     this._nbTurns = value;
+  }
+
+  get TurnLineNumber(): number {
+    return this._TurnLineNumber;
+  }
+
+  set TurnLineNumber(value: number) {
+    this._TurnLineNumber = value;
   }
 
   get settingsMode(): boolean {
@@ -178,6 +257,14 @@ export class ManagerService {
     this._aiGridTab = value;
   }
 
+  get resultGridTab(): Array<any> {
+    return this._resultGridTab;
+  }
+
+  set resultGridTab(value: Array<any>) {
+    this._resultGridTab = value;
+  }
+
   get gc(): ElementRef<any> {
     return this._gc;
   }
@@ -186,11 +273,4 @@ export class ManagerService {
     this._gc = value;
   }
 
-  get resultGridTab(): Array<any> {
-    return this._resultGridTab;
-  }
-
-  set resultGridTab(value: Array<any>) {
-    this._resultGridTab = value;
-  }
 }
