@@ -1,0 +1,11 @@
+:host{
+  display: flex ;
+  flex-direction: row ;
+  flex-wrap: wrap ;
+  justify-content: space-around ;
+  align-items: center ;
+  align-content: center ;
+  grid-row-start: 11;
+  grid-column-end: span 6;
+/*  grid-area: 11 / 1 / 12 / 7;*/
+}

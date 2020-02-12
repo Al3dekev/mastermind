@@ -2,6 +2,7 @@ import {ElementRef, Injectable, ViewChild} from '@angular/core';
 import {ColorData} from '../datas/ColorData';
 import { GameGridData } from '../datas/GameGridData';
 import {AiGridData} from '../datas/AiGridData';
+import {ResultBallData} from '../datas/ResultBallData';
 import {Router} from '@angular/router';
 import {GameComponent} from '../components/game/game.component';
 
@@ -17,6 +18,7 @@ export class ManagerService {
   private _colorTab: Array<any> = [];
   private _gameGridTab: Array<any> = [];
   private _aiGridTab: Array<any> = [];
+  private _resultGridTab: Array<any> = [];
   @ViewChild(GameComponent, {static: false, read: ElementRef}) private _gc: ElementRef<any>;
 
   constructor(private router: Router) {
@@ -182,5 +184,13 @@ export class ManagerService {
 
   set gc(value: ElementRef<any>) {
     this._gc = value;
+  }
+
+  get resultGridTab(): Array<any> {
+    return this._resultGridTab;
+  }
+
+  set resultGridTab(value: Array<any>) {
+    this._resultGridTab = value;
   }
 }

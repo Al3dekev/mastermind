@@ -1,13 +1,20 @@
 import {ManagerService} from './services/manager.service';
-import {ElementRef, QueryList, ViewChildren} from '@angular/core';
+import {ElementRef, HostBinding, QueryList, ViewChildren} from '@angular/core';
 import {SquareComponent} from './components/square/square.component';
+import {DomSanitizer} from '@angular/platform-browser';
 
 export class GridSystem {
 
+  @HostBinding('style.grid-template-rows') private _GridHeightCSS;
+  private _Hgrid: number;
+  private _Wgrid: number;
+  private _GridSquareSize: string;
   @ViewChildren(SquareComponent, {read: ElementRef}) private _squareball: QueryList<ElementRef>;
 
 
-  constructor(public ms: ManagerService) {
+  constructor(public ms: ManagerService, public sanitizer: DomSanitizer) {
+    // Will never changes as far as I know
+    this.GridSquareSize = '50px';
   }
 
 
@@ -80,7 +87,6 @@ export class GridSystem {
   }*/
 
 
-
   turnSystem() {
     const turnConcernedElement = 6;
     let ligneNum = 1;
@@ -98,6 +104,18 @@ export class GridSystem {
     // devient accessible pour l'utilisateur (via l'apparition de la lettre R sur chaque case)
     // le bouton valider est sur la premiere ligne et bouge d'une ligne en bas a chaque fois
     // a chaque validation, le bouton "valider" descend d'un cran
+
+    // ecrit le 12 02 2020
+    // choix utilisateur des cases
+    // ne valide pas les cases si sur BLANC/RIEN. Alert a l'utilisateur
+    //Si valide, test les différentes boules avec celles de l'IA
+    //dans cette ordre:
+    // 1: Correspondance de couleurs, pas de placement, set une result ball sur 1
+    // 2 : correspondances couleurs/placement; set une result ball sur 2
+    // placer les results ball sur la ligne la plus haute et deplacer en conséquent le bouton validate
+    // activation de la 2e ligne de la game grid (grace a la var TOURS EN COURS)
+    // de nouveau en attente du joueur de choix boules et cliquer validate
+    //Mise a jour du TOURS EN COURS a chaque fin de "turn"
   }
 
 
@@ -114,5 +132,37 @@ export class GridSystem {
 
   set squareball(value: QueryList<ElementRef>) {
     this._squareball = value;
+  }
+
+  get GridHeightCSS() {
+    return this._GridHeightCSS;
+  }
+
+  set GridHeightCSS(value) {
+    this._GridHeightCSS = value;
+  }
+
+  get Hgrid(): number {
+    return this._Hgrid;
+  }
+
+  set Hgrid(value: number) {
+    this._Hgrid = value;
+  }
+
+  get Wgrid(): number {
+    return this._Wgrid;
+  }
+
+  set Wgrid(value: number) {
+    this._Wgrid = value;
+  }
+
+  get GridSquareSize(): string {
+    return this._GridSquareSize;
+  }
+
+  set GridSquareSize(value: string) {
+    this._GridSquareSize = value;
   }
 }

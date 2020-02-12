@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ManagerService} from '../../services/manager.service';
 import {GridSystem} from '../../GridSystem';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ai-grid',
@@ -9,8 +10,8 @@ import {GridSystem} from '../../GridSystem';
 })
 export class AiGridComponent extends GridSystem implements OnInit {
 
-  constructor(public ms: ManagerService) {
-    super(ms);
+  constructor(public ms: ManagerService, public sanitizer: DomSanitizer) {
+    super(ms, sanitizer);
   }
 
 

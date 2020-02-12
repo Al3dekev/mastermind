@@ -1,6 +1,2 @@
-<div class="resultBalls">
-  <app-result-ball></app-result-ball>
-</div>
-<div class="resultValidation">
-  <app-result-validate></app-result-validate>
-</div>
+<app-result-ball *ngFor="let i of this.ms.resultGridTab"></app-result-ball>
+<app-result-validate></app-result-validate>

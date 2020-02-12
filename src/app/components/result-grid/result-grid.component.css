@@ -1,4 +1,9 @@
 :host{
   min-width:300px;
   min-height: 500px;
+
+  display: grid;
+  grid-template-columns: repeat(6, 50px);
+  grid-column-gap: 5px;
+  grid-row-gap: 0;
 }
