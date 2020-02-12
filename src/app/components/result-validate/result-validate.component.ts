@@ -19,38 +19,53 @@ export class ResultValidateComponent implements OnInit {
 
   EmptyForNow() {
     this.ms.passingToTheNextLineSelection();
-    console.log('Vide mais fonctionne. Bouton Validate');
+    this.BallComparisons();
+  }
+
+  ResultBallsCreation(){
     let y = 1;
     if (this.actualRow <= 10) {
       this.actualRow++;
-        this.gridArea = this.actualRow;
-        for (let i = 1; i <= 6; i++) {
-          this.ms.resultGridTab.push(new ResultBallData(i, y, 0));
-          y++;
-        }
+      this.gridArea = this.actualRow;
+      for (let i = 1; i <= 6; i++) {
+        this.ms.resultGridTab.push(new ResultBallData(i, y, 0));
+        y++;
+      }
     } else {
       console.log('Vous avez gagné');
     }
   }
 
   BallComparisons() {
-    let numLigne = (this.ms.TurnLineNumber * 6) + 1;
+    const numLigne = (this.ms.TurnLineNumber * 6) + 1;
     const resultLigne = numLigne + 5;
+    let num = 1;
 
     this.ms.aiGridTab.forEach((AiGrid) => {
-      this.ms.gameGridTab.forEach((GameGrid) => {
+      this.ms.gameGridTab.forEach((GameGrid, idg) => {
         if (numLigne <= GameGrid.id && resultLigne >= GameGrid.id) {
-          if((AiGrid.id_line === GameGrid.id_line) && (AiGrid.colorId === GameGrid.colorId)){
-            console.log("Meme couleur et meme position, GG");
-          } else{
-            // faire la recherche sur toute la ligne si présence de couleur
-            //foreach de gameGridtab avec condition avec numligne/resultligne (encore)
+          if  ((AiGrid.id_line === GameGrid.id_line) && (AiGrid.colorId === GameGrid.colorId)) {
+            console.log('Meme couleur et meme position, GG');
+            num++;
+            // this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 2));
+          } else if ((AiGrid.id_line !== GameGrid.id_line) && (AiGrid.colorId === GameGrid.colorId)) {
+            console.log('meme couleur, pas meme position');
+            num++;
+            // this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 1));
+          } else if ((AiGrid.id_line !== GameGrid.id_line) && (AiGrid.colorId !== GameGrid.colorId)) {
+            if (num <= 6 ) {
+              console.log('Rien de similaire');
+            }
+            num++;
+            // this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 0));
+
           }
         }
       });
     });
 
   }
+
 
 /*  declareResultGrid() {
     let y = 1;

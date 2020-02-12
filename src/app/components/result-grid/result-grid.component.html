@@ -1,4 +1,2 @@
-<app-result-ball *ngFor="let i of this.ms.resultGridTab">
-  <div></div>
-</app-result-ball>
+<app-result-ball [ngClass]="{ ball: true, ballPosition0: i.ColorType === 0, ballPosition1: i.ColorType === 1, ballPosition2: i.ColorType === 2 }" *ngFor="let i of this.ms.resultGridTab"></app-result-ball>
 <app-result-validate></app-result-validate>
