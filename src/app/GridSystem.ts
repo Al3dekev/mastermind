@@ -56,9 +56,18 @@ export class GridSystem {
     if (gameGrid.pointingStatus === true) {
       this.ms.colorTab.forEach((elem) => {
         if (gameGrid.colorId === elem.id) {
+          //revoir ce systeme de square ball. D'abord modifier gamegridtab AVANT de modifier dynamiquement squareball
+          // par condition en fonction du color ID. via else if de toutes les couleurs existantes
           this.squareball.forEach((ball, id) => {
             if (gameGrid.id === id + 1) {
               ball.nativeElement.style.backgroundColor = elem.HEX;
+              // change gridID
+              this.ms.gameGridTab.forEach((ggElem) => {
+                if (ggElem.id === gameGrid.id) {
+                  ggElem.id = gameGrid.id;
+                  console.log(ggElem);
+                }
+              });
               if (elem.name !== 'rien') {
                 ball.nativeElement.innerText = this.ms.sliceColorNameToFirstLetter(elem.name);
               } else {

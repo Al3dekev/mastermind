@@ -18,11 +18,11 @@ export class ResultValidateComponent implements OnInit {
   }
 
   EmptyForNow() {
-    this.ms.passingToTheNextLineSelection();
     this.BallComparisons();
+    this.ms.passingToTheNextLineSelection();
   }
 
-  ResultBallsCreation(){
+  ResultBallsCreation() {
     let y = 1;
     if (this.actualRow <= 10) {
       this.actualRow++;
@@ -39,30 +39,36 @@ export class ResultValidateComponent implements OnInit {
   BallComparisons() {
     const numLigne = (this.ms.TurnLineNumber * 6) + 1;
     const resultLigne = numLigne + 5;
-    let num = 1;
+    let num = 0;
+    let found = false;
 
     this.ms.aiGridTab.forEach((AiGrid) => {
       this.ms.gameGridTab.forEach((GameGrid, idg) => {
-        if (numLigne <= GameGrid.id && resultLigne >= GameGrid.id) {
-          if  ((AiGrid.id_line === GameGrid.id_line) && (AiGrid.colorId === GameGrid.colorId)) {
+        if (numLigne <= GameGrid.id && resultLigne >= GameGrid.id && found === false && this.ms.resultGridTab.length < resultLigne) {
+
+          if ((AiGrid.id_line === GameGrid.id_line) && (AiGrid.colorId === GameGrid.colorId)) {
             console.log('Meme couleur et meme position, GG');
-            num++;
-            // this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 2));
+            this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 2));
+            found = true;
           } else if ((AiGrid.id_line !== GameGrid.id_line) && (AiGrid.colorId === GameGrid.colorId)) {
             console.log('meme couleur, pas meme position');
-            num++;
-            // this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 1));
-          } else if ((AiGrid.id_line !== GameGrid.id_line) && (AiGrid.colorId !== GameGrid.colorId)) {
-            if (num <= 6 ) {
-              console.log('Rien de similaire');
-            }
-            num++;
-            // this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 0));
-
+            this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 1));
+            found = true;
+          } else if ((AiGrid.colorId !== GameGrid.colorId)) {
+            console.log('Rien de similaire', AiGrid.colorId, GameGrid.colorId);
+            this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 0));
           }
+          num++;
         }
       });
+      found = false;
     });
+    this.actualRow++;
+    this.gridArea = this.actualRow;
+    console.log('Elements récupérés => ', num);
+
+
+
 
   }
 
