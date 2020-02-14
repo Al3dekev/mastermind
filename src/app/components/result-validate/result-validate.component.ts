@@ -19,18 +19,14 @@ export class ResultValidateComponent implements OnInit {
 
   EmptyForNow() {
     this.BallComparisons();
+    this.ManageResultGridValidateBtnPosition();
     this.ms.passingToTheNextLineSelection();
   }
 
-  ResultBallsCreation() {
-    let y = 1;
+  ManageResultGridValidateBtnPosition() {
     if (this.actualRow <= 10) {
       this.actualRow++;
       this.gridArea = this.actualRow;
-      for (let i = 1; i <= 6; i++) {
-        this.ms.resultGridTab.push(new ResultBallData(i, y, 0));
-        y++;
-      }
     } else {
       console.log('Vous avez gagné');
     }
@@ -44,8 +40,7 @@ export class ResultValidateComponent implements OnInit {
 
     this.ms.aiGridTab.forEach((AiGrid) => {
       this.ms.gameGridTab.forEach((GameGrid, idg) => {
-        if (numLigne <= GameGrid.id && resultLigne >= GameGrid.id && found === false && this.ms.resultGridTab.length < resultLigne) {
-
+        if ((numLigne <= GameGrid.id && resultLigne >= GameGrid.id) && this.ms.resultGridTab.length < resultLigne) {
           if ((AiGrid.id_line === GameGrid.id_line) && (AiGrid.colorId === GameGrid.colorId)) {
             console.log('Meme couleur et meme position, GG');
             this.ms.resultGridTab.push(new ResultBallData(AiGrid.id, idg, 2));
@@ -63,12 +58,7 @@ export class ResultValidateComponent implements OnInit {
       });
       found = false;
     });
-    this.actualRow++;
-    this.gridArea = this.actualRow;
     console.log('Elements récupérés => ', num);
-
-
-
 
   }
 

@@ -18,93 +18,58 @@ export class GridSystem {
   }
 
 
-
-
-  switchBall(gameGrid) {
-    if (gameGrid.colorId === this.ms.colorTab.length) {
-      gameGrid.colorId = 1;
-    } else {
-      gameGrid.colorId++;
-    }
-    this.changeAllBallStyle(gameGrid);
-  }
-
   /**
-   * Normally used to change a single ball style with its ballId & ballIdLine
-   * @param ballId
-   * @param ballIdLine
-   */
-  changeSingleBallStyle(ballId: number, ballIdLine: number) {
-    this.squareball.forEach((ball, id) => {
-      if (id + 1 === ballId) {
-        this.ms.colorTab.forEach((colorElem) => {
-          if (this.ms.rgb2hex(ball.nativeElement.style.backgroundColor) === colorElem.HEX) {
-            ball.nativeElement.innerText = this.ms.sliceColorNameToFirstLetter(colorElem.name);
-          }
-        });
-      }
-    });
-  }
-
-
-
-  /**
-   * It's actually used to show a color, depending how I want to show it.
+   * Actually used for ball placements in the Ai Grid.
    * @param gameGrid
    */
-  changeAllBallStyle(gameGrid) {
-    if (gameGrid.pointingStatus === true) {
-      this.ms.colorTab.forEach((elem) => {
-        if (gameGrid.colorId === elem.id) {
-          //revoir ce systeme de square ball. D'abord modifier gamegridtab AVANT de modifier dynamiquement squareball
-          // par condition en fonction du color ID. via else if de toutes les couleurs existantes
-          this.squareball.forEach((ball, id) => {
-            if (gameGrid.id === id + 1) {
-              ball.nativeElement.style.backgroundColor = elem.HEX;
-              // change gridID
-              this.ms.gameGridTab.forEach((ggElem) => {
-                if (ggElem.id === gameGrid.id) {
-                  ggElem.id = gameGrid.id;
-                  console.log(ggElem);
-                }
-              });
-              if (elem.name !== 'rien') {
-                ball.nativeElement.innerText = this.ms.sliceColorNameToFirstLetter(elem.name);
-              } else {
-                ball.nativeElement.innerText = '';
-              }
-              console.log('This element is now =>', elem.HEX);
-            }
-          });
-        }
-      });
-    } else {
-      console.log('PointingStatus is false for => ', gameGrid.id);
-    }
+  aiBallPlacement(gameGrid) {
+    this.changeBallStyle(gameGrid);
   }
 
-/*
-  testColorStyle(gameGrid) {
-    this.ms.colorTab.forEach((elem) => {
-      if (gameGrid.colorId === elem.id) {
-        this.squareball.forEach((ball, id) => {
-          if (gameGrid.id === id + 1) {
-            ball.nativeElement.style.backgroundColor = elem.HEX;
-            console.log('is this string?');
-          }
-        });
+  /**
+   * Used to change ball color on the user Game Grid
+   * @param gameGrid
+   */
+  switchBall(gameGrid) {
+
+    this.ms.gameGridTab.forEach( (ggElem) => {
+      if (gameGrid.id === ggElem.id) {
+        if (ggElem.colorId === this.ms.colorTab.length) {
+          ggElem.colorId = 1;
+        } else {
+          ggElem.colorId++;
+        }
       }
     });
-  }*/
+    this.changeBallStyle(gameGrid);
+  } // END switchBall
 
 
+  /**
+   * Used to change color
+   * @param gameGrid
+   */
+  changeBallStyle(gameGrid) {
+    this.squareball.forEach( (ball, idBall) => {
+      if (gameGrid.id === (idBall + 1) && gameGrid.pointingStatus === true) {
+        this.ms.colorTab.forEach((colorElem) => {
+          if (gameGrid.colorId === colorElem.id) {
+            ball.nativeElement.style.backgroundColor = colorElem.HEX;
+            console.log('This element N°' + gameGrid.id + ' is now =>', colorElem.HEX, gameGrid.colorId);
+            if (gameGrid.colorId === 1) {
+              ball.nativeElement.innerText = '';
+            } else {
+              ball.nativeElement.innerText = this.ms.sliceColorNameToFirstLetter(colorElem.name);
+            }
+          }
+        });
+      } else if (gameGrid.id === (idBall + 1) && gameGrid.pointingStatus === false) {
+        console.log('PointingStatus is false for => ', gameGrid.id);
+      }
+    });
 
+  } // END changeSingleBall
 
-
-
-  aiBallPlacement(gameGrid) {
-    this.changeAllBallStyle(gameGrid);
-  }
 
 
   get GridHeightCSS() {
@@ -138,7 +103,6 @@ export class GridSystem {
   set GridSquareSize(value: string) {
     this._GridSquareSize = value;
   }
-
 
   get squareball(): QueryList<ElementRef> {
     return this._squareball;
